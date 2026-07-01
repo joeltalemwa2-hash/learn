@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate LearnUP — Student &amp; Parent Reviews</title>
+    <meta name="description"
+      content="Rate your experience with LearnUP and read what other students, teachers and parents across Uganda are saying.">
+    <meta name="theme-color" content="#14231F">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/favicon-32.png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body data-theme="dark">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="status-banner" id="statusBanner" role="status" aria-live="polite"></div>
+
+    <header class="site-header">
+        <nav class="nav container" aria-label="Primary">
+            <a href="index.html#top" class="brand">
+                <span class="brand-mark">📚</span> LearnUP
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#subjects">Subjects</a></li>
+                <li><a href="index.html#materials">Materials</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#pricing">Pricing</a></li>
+                <li><a href="reviews.html" aria-current="page">Rate Us</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="icon-btn" id="themeToggle" aria-label="Switch to light mode"
+                  title="Toggle theme">☀️</button>
+                <a href="index.html#pricing" class="btn btn-primary btn-sm">Start Free</a>
+                <button class="menu-toggle" id="menuToggle" aria-expanded="false"
+                  aria-controls="mobileNav" aria-label="Open menu">☰</button>
+            </div>
+        </nav>
+        <ul class="mobile-nav container" id="mobileNav">
+            <li><a href="index.html#subjects">Subjects</a></li>
+            <li><a href="index.html#materials">Materials</a></li>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="index.html#pricing">Pricing</a></li>
+            <li><a href="reviews.html">Rate Us</a></li>
+        </ul>
+    </header>
+
+    <main id="main">
+
+        <!-- SUMMARY HERO -->
+        <section class="section reviews-hero">
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="eyebrow">Community Reviews</span>
+                    <h2>What Uganda's students &amp; parents think</h2>
+                    <p>Every rating and comment below is public and posted by a real visitor —
+                        including yours, once you submit one.</p>
+                </div>
+
+                <div class="rating-summary reveal" id="ratingSummary">
+                    <div class="rs-score">
+                        <span class="rs-number" id="rsAverage">–</span>
+                        <span class="rs-stars" id="rsStars" aria-hidden="true">☆☆☆☆☆</span>
+                        <span class="rs-count" id="rsCount">No ratings yet</span>
+                    </div>
+                    <div class="rs-bars" id="rsBars" aria-hidden="true">
+                        <!-- filled by app.js: 5→1 star distribution bars -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBMIT FORM -->
+        <section class="section review-form-section">
+            <div class="container">
+                <div class="review-form-card reveal">
+                    <h3>Leave a rating</h3>
+                    <p class="form-hint">Your name and comment will be visible to everyone who
+                        visits this page.</p>
+
+                    <form id="reviewForm" novalidate>
+                        <!-- honeypot: hidden from real users, bots tend to fill every field -->
+                        <div class="hp-field" aria-hidden="true">
+                            <label for="websiteField">Leave this field empty</label>
+                            <input type="text" id="websiteField" name="websiteField" tabindex="-1"
+                              autocomplete="off">
+                        </div>
+
+                        <fieldset class="star-input" id="starInput">
+                            <legend>Your rating</legend>
+                            <div class="stars-picker">
+                                <input type="radio" id="star5" name="rating" value="5"><label
+                                  for="star5" title="5 stars">★</label>
+                                <input type="radio" id="star4" name="rating" value="4"><label
+                                  for="star4" title="4 stars">★</label>
+                                <input type="radio" id="star3" name="rating" value="3"><label
+                                  for="star3" title="3 stars">★</label>
+                                <input type="radio" id="star2" name="rating" value="2"><label
+                                  for="star2" title="2 stars">★</label>
+                                <input type="radio" id="star1" name="rating" value="1"><label
+                                  for="star1" title="1 star">★</label>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-row">
+                            <label for="reviewerName">Name</label>
+                            <input type="text" id="reviewerName" name="name" maxlength="60"
+                              placeholder="e.g. Sarah N." required>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="reviewerRole">I am a...</label>
+                            <select id="reviewerRole" name="role">
+                                <option value="Student">Student</option>
+                                <option value="Parent">Parent</option>
+                                <option value="Teacher">Teacher</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="reviewComment">Your comment</label>
+                            <textarea id="reviewComment" name="comment" rows="4" maxlength="600"
+                              placeholder="Tell other students and parents about your experience..."
+                              required></textarea>
+                        </div>
+
+                        <p class="form-error" id="formError" role="alert"></p>
+                        <p class="form-success" id="formSuccess" role="status"></p>
+
+                        <button type="submit" class="btn btn-primary" id="submitReviewBtn">Post
+                            Review</button>
+                    </form>
+                </div>
+
+                <!-- REVIEW LIST -->
+                <div class="review-list-wrap">
+                    <div class="review-list-head reveal">
+                        <h3>All reviews</h3>
+                        <div class="filter-group" id="ratingFilters" role="group"
+                          aria-label="Filter by rating">
+                            <button class="filter-chip is-active"
+                              data-filter-rating="all">All</button>
+                            <button class="filter-chip" data-filter-rating="5">★5</button>
+                            <button class="filter-chip" data-filter-rating="4">★4</button>
+                            <button class="filter-chip" data-filter-rating="3">★3</button>
+                            <button class="filter-chip" data-filter-rating="2">★2</button>
+                            <button class="filter-chip" data-filter-rating="1">★1</button>
+                        </div>
+                    </div>
+                    <div class="review-list" id="reviewList" aria-live="polite">
+                        <p class="materials-status">Loading reviews…</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html#top" class="brand"><span class="brand-mark">📚</span>
+                        LearnUP</a>
+                    <p>A product by <strong>TALJOE Studios</strong>. Built for Uganda's students,
+                        aligned to the UNEB curriculum, and designed to work with zero internet.</p>
+                </div>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#pricing">Pricing</a></li>
+                    <li><a href="reviews.html">Rate Us</a></li>
+                    <li><a href="index.html#top">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">© 2026 LearnUP. Built for Uganda's students by TALJOE
+                Studios, Masaka.</div>
+        </div>
+    </footer>
+
+    <div class="install-toast" id="installToast">
+        <div class="txt"><strong>Install LearnUP</strong><span>Add it to your home screen — works
+                offline once installed.</span></div>
+        <button class="btn btn-primary btn-sm" id="installBtn">Install</button>
+        <button class="close-toast" id="closeToast" aria-label="Dismiss">✕</button>
+    </div>
+
+    <!-- Firebase (Firestore) powers the shared, public review list. See README for setup. -->
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="reviews.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

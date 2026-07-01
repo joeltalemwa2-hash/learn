@@ -1,4 +1,4 @@
-const VERSION = "learnup-v2";
+const VERSION = "learnup-v3";
 const SHELL_CACHE = `${VERSION}-shell`;
 const RUNTIME_CACHE = `${VERSION}-runtime`;
 
@@ -6,8 +6,11 @@ const APP_SHELL = [
   "./",
   "./index.html",
   "./offline.html",
+  "./reviews.html",
   "./styles.css",
   "./app.js",
+  "./reviews.js",
+  "./firebase-config.js",
   "./manifest.json",
   "./data/materials.json",
   "./icons/icon-192.png",
